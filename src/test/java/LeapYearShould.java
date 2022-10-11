@@ -1,15 +1,33 @@
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 public class LeapYearShould {
+    private Leap leap;
+    @BeforeEach
+    void setup() {
+       leap = new Leap();
+    }
 
     @Test public void return_false_if_not_a_leap_year(){
-        Leap leap = new Leap();
         Assertions.assertFalse(leap.checkIfLeapYear(1921));
     }
 
-    @Test public void return_true_if_year_is_divisible_by_four(){
-        Leap leap = new Leap();
-        Assertions.assertTrue(leap.checkIfLeapYear(192));
+    @ParameterizedTest
+    @CsvSource({
+            "1920",
+            "1940",
+            "2000"
+    })
+    public void return_true_if_is_leap_year(int year) {
+        Assertions.assertTrue(leap.checkIfLeapYear(year));
     }
+
+    @Test
+    public void return_false_if_divisible_by_100_but_not_divisible_by_400() {
+        Assertions.assertFalse(leap.checkIfLeapYear(1900));
+    }
+
 }
