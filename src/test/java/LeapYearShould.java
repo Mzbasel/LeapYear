@@ -25,9 +25,13 @@ public class LeapYearShould {
         Assertions.assertTrue(leap.checkIfLeapYear(year));
     }
 
-    @Test
-    public void return_false_if_divisible_by_100_but_not_divisible_by_400() {
-        Assertions.assertFalse(leap.checkIfLeapYear(1900));
+    @ParameterizedTest
+    @CsvSource({
+            "1900",
+            "1800",
+    })
+    public void return_false_if_divisible_by_100_but_not_divisible_by_400(int year) {
+        Assertions.assertFalse(leap.checkIfLeapYear(year));
     }
 
 }
